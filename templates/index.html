@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Contract Generator</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Generate Smart Contract</h1>
+
+    <form id="contractForm" class="contract-form">
+        <div class="form-group">
+            <label for="clientName">Client Name:</label>
+            <input type="text" id="clientName" name="clientName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="clientEmail">Client Email:</label>
+            <input type="text" id="clientEmail" name="clientEmail" required>
+        </div>
+
+        <div class="form-group">
+            <label for="paymentAmount">Payment Amount:</label>
+            <input type="text" id="paymentAmount" name="paymentAmount" required>
+        </div>
+
+        <div class="form-group">
+            <label for="requirements">Requirements:</label>
+            <textarea id="requirements" name="requirements" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Generate Contract" class="btn-submit">
+        </div>
+    </form>
+</div>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>

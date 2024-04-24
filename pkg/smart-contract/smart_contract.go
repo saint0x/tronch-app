@@ -6,6 +6,7 @@ import (
   "fmt"
   "log"
   "os"
+  "io/ioutil"
 
   openai "github.com/sashabaranov/go-openai"
 )
@@ -71,47 +72,41 @@ func ExtractRequirements(ctx context.Context, clientName, clientEmail string, pa
   return resp.Choices[0].Message.Content, nil
 }
 
+
+
 // GenerateSmartContract generates a Solidity smart contract based on extracted requirements
 func GenerateSmartContract(userInput map[string]string) (string, error) {
-  promptJSON, err := os.ReadFile("prompt.json")
+  // Read the Solidity contract template from solidity_template.json
+  templateJSON, err := os.ReadFile("solidity_template.json")
   if err != nil {
-    return "", fmt.Errorf("failed to read prompt.json: %v", err)
+    return "", fmt.Errorf("failed to read solidity_template.json: %v", err)
   }
 
-  var promptData map[string]string
-  if err := json.Unmarshal(promptJSON, &promptData); err != nil {
-    return "", fmt.Errorf("failed to unmarshal prompt.json: %v", err)
+  var templateData map[string]interface{}
+  if err := json.Unmarshal(templateJSON, &templateData); err != nil {
+    return "", fmt.Errorf("failed to unmarshal solidity_template.json: %v", err)
   }
 
-  prompt := fmt.Sprintf(promptData["prompt"], userInput["requirements"], userInput["description"])
-
-  client := openai.NewClient(os.Getenv("OPENAI_API_KEY"))
-  if client == nil {
-    return "", fmt.Errorf("failed to create OpenAI client")
+  // Extract the contract template from the JSON data
+  contractTemplate, ok := templateData["contractTemplate"].(string)
+  if !ok {
+    return "", fmt.Errorf("contractTemplate not found in solidity_template.json")
   }
 
-  resp, err := client.CreateChatCompletion(
-    context.Background(),
-    openai.ChatCompletionRequest{
-      Model: openai.GPT3Dot5Turbo,
-      Messages: []openai.ChatCompletionMessage{
-        {
-          Role:    openai.ChatMessageRoleUser,
-          Content: prompt,
-        },
-      },
-    },
-  )
-
-  if err != nil {
-    return "", err
-  }
-
-  generatedContract := resp.Choices[0].Message.Content
+  // Populate the contract template with user's input
+  populatedContract := strings.ReplaceAll(contractTemplate, "{{clientName}}", userInput["clientName"])
+  populatedContract = strings.ReplaceAll(populatedContract, "{{clientEmail}}", userInput["clientEmail"])
+  populatedContract = strings.ReplaceAll(populatedContract, "{{paymentAmount}}", userInput["paymentAmount"])
+  populatedContract = strings.ReplaceAll(populatedContract, "{{requirements}}", userInput["requirements"])
+  populatedContract = strings.ReplaceAll(populatedContract, "{{description}}", userInput["description"])
 
   log.Println("Successfully generated smart contract.")
-  return generatedContract, nil
+  return populatedContract, nil
 }
+
+
+
+
 
 // SaveContractAsSolidity saves the generated contract as a .sol file
 func SaveContractAsSolidity(contractCode string, filePath string) error {

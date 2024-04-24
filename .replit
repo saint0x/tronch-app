@@ -13,3 +13,7 @@ requiredFiles = [".replit"]
 run = ["go", "run", "."]
 ignorePorts = false
 deploymentTarget = "gce"
+
+[[ports]]
+localPort = 8080
+externalPort = 80
