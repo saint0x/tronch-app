@@ -1,0 +1,25 @@
+[tronch.io] Your escrow has initiated!
+
+
+Congrats John,
+
+Jane has initiated an escrow for your project! 🎉
+
+We’re tronch.io, the escrow service that will be handling payment!
+You can rest assured knowing your funds are completely secure and will be released only once the project milestones have been completed to your standards.
+
+The requirements that are set to be programmed into your smart contract are as follows:
+- Create a login system
+- Implement payment gateway
+
+Below, you’ll find two links:
+
+- A secure link to make payment: 
+
+https://example.com/payment
+
+- A link to your collaborative Dashboard, where you will confirm requirements, and check on project updates from a birds-eye view. We’ll email you as the project status changes:
+
+https://example.com/dashboard
+
+Next steps would be to head over to the Dashboard, confirm the requirements, make payment, and leave the rest to us!
