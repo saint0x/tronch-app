@@ -13,7 +13,7 @@ var (
   DB *sql.DB
 )
 
-// Initialize initializes the SQLite database
+// Initializes the SQLite database
 func Initialize(dbPath string) error {
   var err error
 
@@ -77,7 +77,7 @@ func Initialize(dbPath string) error {
   return nil
 }
 
-// PrintSchema prints the schema of the SQLite database
+// Prints the schema of the SQLite database
 func PrintSchema() {
   rows, err := DB.Query("SELECT name, sql FROM sqlite_master WHERE type='table';")
   if err != nil {

@@ -12,15 +12,15 @@ import (
   "smart_contract/pkg/smart-contract/contract" // Import the compiled contract binding
 )
 
-// ContractAddress should be the address where your deployed contract resides
+// Should be the address where your deployed contract resides
 var ContractAddress = common.HexToAddress("YOUR_CONTRACT_ADDRESS_HERE")
 
-// Interactor provides functionalities to trigger interactions with the smart contract
+// Provides functionalities to trigger interactions with the smart contract
 type Interactor struct {
   ethClient *ethclient.Client
 }
 
-// NewInteractor creates a new instance of Interactor
+// Creates a new instance of Interactor
 func NewInteractor(nodeURL string) (*Interactor, error) {
   client, err := ethclient.Dial(nodeURL)
   if err != nil {
@@ -31,7 +31,7 @@ func NewInteractor(nodeURL string) (*Interactor, error) {
   }, nil
 }
 
-// bindNewTransactor creates a new transactor
+// Creates a new transactor
 func bindNewTransactor() (*bind.TransactOpts, error) {
   privateKey, err := crypto.HexToECDSA("YOUR_PRIVATE_KEY_HERE")
   if err != nil {
@@ -44,7 +44,7 @@ func bindNewTransactor() (*bind.TransactOpts, error) {
 
 
 
-// ExecuteContract triggers the deployment and execution of the generated smart contract
+// Triggers the deployment and execution of the generated smart contract
 func (i *Interactor) ExecuteContract(ctx context.Context, contractCodeFilePath string) (string, error) {
   // Read the contract code from the provided file path
   contractCode, err := os.ReadFile(contractCodeFilePath)
@@ -104,7 +104,7 @@ func (i *Interactor) ExecuteContract(ctx context.Context, contractCodeFilePath s
   return contractAddress.Hex(), nil
 }
 
-// deployContract deploys the smart contract to the Polygon chain
+// Deploys the smart contract to the Polygon chain
 func deployContract(auth *bind.TransactOpts, client *ethclient.Client, contractCode []byte) (common.Address, *types.Transaction, *EscrowService, error) {
   // Compile and deploy the contract
   parsedContract, err := solidity.ABI("EscrowService", string(contractCode))
@@ -123,7 +123,7 @@ func deployContract(auth *bind.TransactOpts, client *ethclient.Client, contractC
 
 
 
-// MarkRequirementsComplete triggers the interaction to mark requirements as complete
+// Triggers the interaction to mark requirements as complete
 func (i *Interactor) MarkRequirementsComplete(ctx context.Context, contractAddress string) error {
   // Implement interaction to mark requirements as complete
   log.Println("Marking requirements as complete...")
@@ -175,7 +175,7 @@ func (i *Interactor) MarkRequirementsComplete(ctx context.Context, contractAddre
 
 
 
-// ConfirmReqs triggers the interaction for the buyer to confirm the requirements
+// Triggers the interaction for the buyer to confirm the requirements
 func (i *Interactor) ConfirmReqs(ctx context.Context, contractAddress string) error {
   // TODO: Implement interaction for buyer to confirm requirements
   log.Println("Confirming requirements...")
@@ -225,7 +225,7 @@ func (i *Interactor) ConfirmReqs(ctx context.Context, contractAddress string) er
 
 
 
-// InitiateDispute triggers the interaction to initiate a dispute
+// Triggers the interaction to initiate a dispute
 func (i *Interactor) InitiateDispute(ctx context.Context, contractAddress string) error {
   // TODO: Implement interaction to initiate a dispute
   log.Println("Initiating dispute...")
@@ -275,7 +275,7 @@ func (i *Interactor) InitiateDispute(ctx context.Context, contractAddress string
 
 
 
-// ResolveDispute triggers the interaction to resolve a dispute
+// Triggers the interaction to resolve a dispute
 func (i *Interactor) ResolveDispute(ctx context.Context, contractAddress string, resolution string) error {
   // TODO: Implement interaction to resolve a dispute
   log.Printf("Resolving dispute with resolution: %s...", resolution)
@@ -325,7 +325,7 @@ func (i *Interactor) ResolveDispute(ctx context.Context, contractAddress string,
 
 
 
-// UpdateContractProgress triggers the interaction to update the contract's progression
+// Triggers the interaction to update the contract's progression
 func (i *Interactor) UpdateContractProgress(ctx context.Context, contractAddress string, progressStatus uint8) error {
   // TODO: Implement interaction to update contract's progression
   log.Printf("Updating contract progression to status: %d...", progressStatus)

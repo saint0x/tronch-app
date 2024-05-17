@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"text/template"
+	"io"
 
 	"smart_contract/pkg/smart-contract"
 )
@@ -40,7 +40,7 @@ func main() {
 }
 
 func GenerateContract(w http.ResponseWriter, r *http.Request) {
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Printf("Error reading request body: %v", err)
 		http.Error(w, "Failed to read request body", http.StatusInternalServerError)

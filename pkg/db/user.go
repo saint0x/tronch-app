@@ -5,7 +5,7 @@ import (
   "log"
 )
 
-// User represents a user in the database
+// Represents a user in the database
 type User struct {
   ID        int
   FirstName string
@@ -14,7 +14,7 @@ type User struct {
   Password  string
 }
 
-// CreateUser adds a new user to the database
+// Adds a new user to the database
 func CreateUser(user User) error {
   _, err := DB.Exec("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)",
     user.FirstName, user.LastName, user.Email, user.Password)
@@ -25,7 +25,7 @@ func CreateUser(user User) error {
   return nil
 }
 
-// GetUserByEmail retrieves a user by email
+// Retrieves a user by email
 func GetUserByEmail(email string) (User, error) {
   var user User
   err := DB.QueryRow("SELECT id, first_name, last_name, email, password FROM users WHERE email = ?", email).
@@ -36,7 +36,7 @@ func GetUserByEmail(email string) (User, error) {
   return user, nil
 }
 
-// UpdateUser updates a user's details
+// Updates a user's details
 func UpdateUser(user User) error {
   _, err := DB.Exec("UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ? WHERE id = ?",
     user.FirstName, user.LastName, user.Email, user.Password, user.ID)
@@ -47,7 +47,7 @@ func UpdateUser(user User) error {
   return nil
 }
 
-// DeleteUser deletes a user by ID
+// Deletes a user by ID
 func DeleteUser(userID int) error {
   _, err := DB.Exec("DELETE FROM users WHERE id = ?", userID)
   if err != nil {

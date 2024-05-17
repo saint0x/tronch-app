@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-// EmailData represents the data to populate in the email template
+// Represents the data to populate in the email template
 type EmailData struct {
 	ClientFirstName string
 	UserFirstName   string
@@ -16,7 +16,7 @@ type EmailData struct {
 	DashboardLink   string
 }
 
-// GenerateEmailBody generates the email body and subject based on the provided data
+// Generates the email body and subject based on the provided data
 func GenerateEmailBody(data EmailData) (string, string, error) {
 	// Define email subject and body
 	subject := "[tronch.io] Your escrow has initiated!"
@@ -65,7 +65,7 @@ Next steps would be to head over to the Dashboard, confirm the requirements, mak
 	return subject, bodyStr, nil
 }
 
-// SaveToTxt saves the given subject and content to a .txt file
+// Saves the given subject and content to a .txt file
 func SaveToTxt(filename, subject, content string) error {
 	// Combine subject and content with two spaces in between
 	fullContent := fmt.Sprintf("%s\n\n%s", subject, content)
